@@ -1,19 +1,30 @@
 
-#include "rgb.h"
-#include "vector2.h"
-#include "vector3.h"
-#include "random.h"
-#include "dynamic_array.h"
+#include <math.h>
+#include <fstream>
+#include <string>
+using namespace std;
+
+#include "image.h"
 
 int main()
 {
-	rgb c;
-	vector2 v2;
-	vector3 v3;
-	random rnd;
-	FLOAT r = rnd();
-	dynamic_array<int> ar(10);
-	ar.append(10);
+	image img;
+
+	std::ifstream in;
+	in.open("d:\\image.ppm");
+	if (!in)
+	{
+		cerr << "ERROR -- Can't find PPM file  \'" << string("d:\\image.ppm") << "\'\n";
+		exit(0);
+	}
+	img.read_PPM(in);
+	in.close();
+
+	std::ofstream out;
+	out.open("d:\\aa.ppm");
+	img.write_PPM(out);
+	out.close();
+
     return 0;
 }
 

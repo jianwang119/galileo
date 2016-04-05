@@ -21,13 +21,8 @@ void image::read_PPM(std::istream& s)
 			for (int j = 0; j < w; j++)
 			{
 				s >> red >> green >> blue;
-				pix_col[0] = ((FLOAT(red) + 0.5f) / 256.0f) *
-					((FLOAT(red) + 0.5f) / 256.0f);
-				pix_col[1] = ((FLOAT(green) + 0.5f) / 256.0f) *
-					((FLOAT(green) + 0.5f) / 256.0f);
-				pix_col[2] = ((FLOAT(blue) + 0.5f) / 256.0f) *
-					((FLOAT(blue) + 0.5f) / 256.0f);
-				data[j][i] = pix_col;
+				pix_col.set_u8((U8)red, (U8)green, (U8)blue);
+				data[j][i] = pix_col.gamma(2.2f);
 			}
 		}
 	}
@@ -39,18 +34,9 @@ void image::read_PPM(std::istream& s)
 		{
 			for (int j = 0; j < w; j++)
 			{
-				s.get(red);
-				s.get(green);
-				s.get(blue);
-
-				pix_col[0] = ((FLOAT(red) + 0.5f) / 256.0f) *
-					((FLOAT(red) + 0.5f) / 256.0f);
-				pix_col[1] = ((FLOAT(green) + 0.5f) / 256.0f) *
-					((FLOAT(green) + 0.5f) / 256.0f);
-				pix_col[2] = ((FLOAT(blue) + 0.5f) / 256.0f) *
-					((FLOAT(blue) + 0.5f) / 256.0f);
-
-				data[j][i] = pix_col;
+				s.get(red); s.get(green); s.get(blue);
+				pix_col.set_u8((U8)red, (U8)green, (U8)blue);
+				data[j][i] = pix_col.gamma(2.2f);
 			}
 		}
 	}
@@ -58,26 +44,15 @@ void image::read_PPM(std::istream& s)
 
 void image::write_PPM(std::ostream& s) const
 {
-	s << "P6\n" << w << " " << h << "\n255\n";
+	s << "P3\n" << w << " " << h << "\n255\n";
 
-	unsigned int i;
 	for (int y = h - 1; y >= 0; y--)
 	{
 		for (int x = 0; x < w; x++)
 		{
-			FLOAT gamma = 1.0f / 2.2f;
-			data[x][y] = rgb(pow(data[x][y].r(), gamma),
-				pow(data[x][y].g(), gamma),
-				pow(data[x][y].b(), gamma));
-			i = (U32)(256.0 * data[x][y].r());
-			if (i > 255) i = 255;
-			s.put((U8)i);
-			i = (U32)(256.0 * data[x][y].g());
-			if (i > 255) i = 255;
-			s.put((U8)i);
-			i = (U32)(256.0 * data[x][y].b());
-			if (i > 255) i = 255;
-			s.put((U8)i);
+			data[x][y] = data[x][y].gamma(1.0f/2.2f);
+			s << (int)data[x][y].r_u8() << " " << (int)data[x][y].g_u8() 
+				<< " " << (int)data[x][y].b_u8() << " ";
 		}
 	}
 }

@@ -25,19 +25,54 @@ public:
 		data[2] = c.data[2];
 	}
 
-	float r() const
+	inline void set(FLOAT r, FLOAT g, FLOAT b)
+	{
+		data[0] = r;
+		data[1] = g;
+		data[2] = b;
+	}
+
+	inline FLOAT r() const
 	{
 		return data[0];
 	}
 
-	float g() const
+	inline FLOAT g() const
 	{
 		return data[1];
 	}
 
-	float b() const
+	inline FLOAT b() const
 	{
 		return data[2];
+	}
+
+	inline void set_u8(U8 r, U8 g, U8 b)
+	{
+		data[0] = ((FLOAT(r) + 0.5f) / 256.0f);
+		data[1] = ((FLOAT(g) + 0.5f) / 256.0f);
+		data[2] = ((FLOAT(b) + 0.5f) / 256.0f);
+	}
+
+	inline U8 r_u8() const
+	{
+		U32 i = (U32)(256.0 * data[0]);
+		if (i > 255) i = 255;
+		return (U8)i;
+	}
+
+	inline U8 g_u8() const
+	{
+		U32 i = (U32)(256.0 * data[1]);
+		if (i > 255) i = 255;
+		return (U8)i;
+	}
+
+	inline U8 b_u8() const
+	{
+		U32 i = (U32)(256.0 * data[2]);
+		if (i > 255) i = 255;
+		return (U8)i;
 	}
 
 	inline void clamp()
@@ -47,6 +82,11 @@ public:
 		data[2] = fclamp01(data[2]);
 	}
 
+	inline rgb gamma(FLOAT gamma = 1.0f / 2.2f) const
+	{
+		return rgb(pow(data[0], gamma), pow(data[1], gamma), pow(data[2], gamma));
+	}
+		
 	rgb operator+() const
 	{
 		return rgb(data[0], data[1], data[2]);
