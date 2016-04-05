@@ -147,13 +147,6 @@ inline std::ostream& operator<<(std::ostream& os, const vector2& v)
 	return (os << v[0] << v[1]);
 }
 
-inline vector2 normalize(const vector2& v)
-{
-	float k = 1.0f / sqrt(v.e[0] * v.e[0] + v.e[1] * v.e[1]);
-	return vector2(v.e[0] * k, v.e[1] * k);
-}
-
-
 inline vector2 operator+(const vector2& v1, const vector2& v2)
 {
 	return vector2(v1.e[0] + v2.e[0], v1.e[1] + v2.e[1]);
@@ -177,6 +170,12 @@ inline vector2 operator*(const vector2& v, float f)
 inline vector2 operator/(const vector2 &v, float f) 
 {
 	return vector2(v.e[0] / f, v.e[1] / f);
+}
+
+inline vector2 unit(const vector2& v)
+{
+	float k = 1.0f / sqrt(v.e[0] * v.e[0] + v.e[1] * v.e[1]);
+	return vector2(v.e[0] * k, v.e[1] * k);
 }
 
 inline float dot(const vector2& v1, const vector2& v2) 
