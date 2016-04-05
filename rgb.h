@@ -112,14 +112,14 @@ public:
 	FLOAT data[3];
 };
 
-inline bool operator==(rgb c1, rgb c2)
+inline bool operator==(const rgb& c1, const rgb& c2)
 {
-	return fequal(c1.r(), c2.r())&&fequal(c1.g(), c2.g())&&fequal(c1.b(), c2.b());
+	return (fequal(c1.r(), c2.r())&&fequal(c1.g(), c2.g())&&fequal(c1.b(), c2.b()));
 }
 
-inline bool operator!=(rgb c1, rgb c2)
+inline bool operator!=(const rgb& c1, const rgb& c2)
 {
-	return !(c1 == c2);
+	return (!fequal(c1.r(), c2.r())||!fequal(c1.g(), c2.g())||!fequal(c1.b(), c2.b()));
 }
 
 inline std::istream& operator>>(std::istream& is, rgb& c)
@@ -127,42 +127,42 @@ inline std::istream& operator>>(std::istream& is, rgb& c)
 	return (is >> c[0] >> c[1] >> c[2]);
 }
 
-inline std::ostream& operator<<(std::ostream& os, rgb& c)
+inline std::ostream& operator<<(std::ostream& os, const rgb& c)
 {
 	return (os << c[0] << c[1] << c[2]);
 }
 
-inline rgb operator+(rgb c1, rgb c2) 
+inline rgb operator+(const rgb& c1, const rgb& c2)
 {
 	return rgb(c1.r() + c2.r(), c1.g() + c2.g(), c1.b() + c2.b());
 }
 
-inline rgb operator-(rgb c1, rgb c2) 
+inline rgb operator-(const rgb& c1, const rgb& c2)
 {
 	return rgb(c1.r() - c2.r(), c1.g() - c2.g(), c1.b() - c2.b());
 }
 
-inline rgb operator*(rgb c1, rgb c2) 
+inline rgb operator*(const rgb& c1, const rgb& c2) 
 {
 	return rgb(c1.r()*c2.r(), c1.g()*c2.g(), c1.b()*c2.b());
 }
 
-inline rgb operator/(rgb c1, rgb c2) 
+inline rgb operator/(const rgb& c1, const rgb& c2) 
 {
 	return rgb(c1.r() / c2.r(), c1.g() / c2.g(), c1.b() / c2.b());
 }
 
-inline rgb operator*(rgb c, float f)
+inline rgb operator*(const rgb& c, float f)
 {
-	return rgb(c.r()*f, c.g()*f, c.b()*f);
+	return rgb(c.r() * f, c.g() * f, c.b() * f);
 }
 
-inline rgb operator*(float f, rgb c) 
+inline rgb operator*(float f, const rgb& c) 
 {
-	return rgb(c.r()*f, c.g()*f, c.b()*f);
+	return rgb(c.r() * f, c.g() * f, c.b() * f);
 }
 
-inline rgb operator/(rgb c, float f) 
+inline rgb operator/(const rgb& c, float f) 
 {
 	return rgb(c.r() / f, c.g() / f, c.b() / f);
 }

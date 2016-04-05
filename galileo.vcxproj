@@ -148,6 +148,10 @@
     <ClInclude Include="global_define.h" />
     <ClInclude Include="math_utils.h" />
     <ClInclude Include="rgb.h" />
+    <ClInclude Include="vector2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
