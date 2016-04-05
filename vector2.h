@@ -34,14 +34,14 @@ public:
 		return e[1];
 	}
 
-	void set_x(float a)
+	void set_x(float f)
 	{
-		e[0] = a;
+		e[0] = f;
 	}
 
-	void set_y(float a)
+	void set_y(float f)
 	{
-		e[1] = a;
+		e[1] = f;
 	}
 	
 	FLOAT length() const
@@ -58,12 +58,12 @@ public:
 
 	void scramble();
 
-	const vector2& operator+() const
+	vector2 operator+() const
 	{
 		return *this;
 	}
 
-	vector2& operator-() const
+	vector2 operator-() const
 	{
 		return vector2(-e[0], -e[1]);
 	}
@@ -126,7 +126,6 @@ inline void vector2::normalize()
 	e[0] *= k; 
 	e[1] *= k;
 }
-
 
 inline bool operator==(const vector2& v1, const vector2& v2)
 {

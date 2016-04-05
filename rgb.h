@@ -114,12 +114,12 @@ public:
 
 inline bool operator==(const rgb& c1, const rgb& c2)
 {
-	return (fequal(c1.r(), c2.r())&&fequal(c1.g(), c2.g())&&fequal(c1.b(), c2.b()));
+	return (fequal(c1[0], c2[0]) && fequal(c1[1], c2[1]) && fequal(c1[2], c2[2]));
 }
 
 inline bool operator!=(const rgb& c1, const rgb& c2)
 {
-	return (!fequal(c1.r(), c2.r())||!fequal(c1.g(), c2.g())||!fequal(c1.b(), c2.b()));
+	return (!fequal(c1[0], c2[0]) || !fequal(c1[1], c2[1]) || !fequal(c1[2], c2[2]));
 }
 
 inline std::istream& operator>>(std::istream& is, rgb& c)
