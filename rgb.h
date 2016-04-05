@@ -40,6 +40,13 @@ public:
 		return data[2];
 	}
 
+	inline void clamp()
+	{
+		data[0] = fclamp01(data[0]);
+		data[1] = fclamp01(data[1]);
+		data[2] = fclamp01(data[2]);
+	}
+
 	rgb operator+() const
 	{
 		return rgb(data[0], data[1], data[2]);

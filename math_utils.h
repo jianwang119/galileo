@@ -4,6 +4,22 @@
 #include <math.h>
 #include "global_define.h"
 
+template<typename T>
+T clamp(T f, T min, T max)
+{
+	T v = f;
+	if (v > max)
+		v = max;
+	if (v < min)
+		v = min;
+	return f;
+}
+
+inline FLOAT fclamp01(FLOAT f)
+{
+	return clamp<FLOAT>(f, 0.0f, 1.0f);
+}
+
 inline bool fequal(FLOAT f1, FLOAT f2)
 {
 	return fabs(f1 - f2) <= FLOAT_EPSILON;
