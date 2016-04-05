@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <iostream>
 
+#define U64 unsigned long long	
 #define FLOAT float
 
 
