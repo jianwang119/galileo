@@ -143,10 +143,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="galileo.cpp" />
+    <ClCompile Include="orthonormal_basis.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global_define.h" />
     <ClInclude Include="math_utils.h" />
+    <ClInclude Include="orthonormal_basis.h" />
     <ClInclude Include="rgb.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />
