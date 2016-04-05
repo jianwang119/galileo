@@ -3,6 +3,7 @@
 
 #include "global_define.h"
 
+// linear congruence algorithm
 class random
 {
 public:

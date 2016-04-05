@@ -26,20 +26,6 @@ void image::read_PPM(std::istream& s)
 			}
 		}
 	}
-	else
-	{
-		char red, green, blue;
-		s.get(red); // get rid of newline
-		for (int i = h - 1; i >= 0; i--)
-		{
-			for (int j = 0; j < w; j++)
-			{
-				s.get(red); s.get(green); s.get(blue);
-				pix_col.set_u8((U8)red, (U8)green, (U8)blue);
-				data[j][i] = pix_col.gamma(2.2f);
-			}
-		}
-	}
 }
 
 void image::write_PPM(std::ostream& s) const
