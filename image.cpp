@@ -2,7 +2,7 @@
 
 #include "image.h"
 
-void image::read_PPM(std::istream& s)
+void galileo::image::read_PPM(std::istream& s)
 {
 	std::string file_type, garbage;
 	rgb pix_col;
@@ -28,7 +28,7 @@ void image::read_PPM(std::istream& s)
 	}
 }
 
-void image::write_PPM(std::ostream& s) const
+void galileo::image::write_PPM(std::ostream& s) const
 {
 	s << "P3\n" << w << " " << h << "\n255\n";
 

@@ -3,122 +3,125 @@
 
 #include "global_define.h"
 
-template<class T>
-class dynamic_array
+namespace galileo
 {
-public:
-	dynamic_array()
+	template<class T>
+	class dynamic_array
 	{
-		count = 0;
-		data_size = 4;
-		data = new T[data_size];
-	}
+	public:
+		dynamic_array()
+		{
+			count = 0;
+			data_size = 4;
+			data = new T[data_size];
+		}
 
-	dynamic_array(int s)
-	{
-		count = 0;
-		data_size = s;
-		data = new T[data_size];
-	}
+		dynamic_array(int s)
+		{
+			count = 0;
+			data_size = s;
+			data = new T[data_size];
+		}
 
-	~dynamic_array()
-	{
-		data_size = 0;
-		if (data != 0)
-			delete[] data;
-	}
+		~dynamic_array()
+		{
+			data_size = 0;
+			if (data != 0)
+				delete[] data;
+		}
 
-	dynamic_array(const dynamic_array<T>& rhs)
-	{
-		if (data != 0)
-			delete[] data;
+		dynamic_array(const dynamic_array<T>& rhs)
+		{
+			if (data != 0)
+				delete[] data;
 
-		count = rhs.length();
-		data_size = rhs.data_size;
-		data = new T[data_size];
+			count = rhs.length();
+			data_size = rhs.data_size;
+			data = new T[data_size];
 
-		for (int i = 0; i < rhs.length(); i++)
-			data[i] = rhs[i];
-	}
+			for (int i = 0; i < rhs.length(); i++)
+				data[i] = rhs[i];
+		}
 
-	dynamic_array<T>& operator=(const dynamic_array<T>& rhs)
-	{
-		if (&rhs == this)
+		dynamic_array<T>& operator=(const dynamic_array<T>& rhs)
+		{
+			if (&rhs == this)
+				return *this;
+
+			if (data != null)
+				delete[] data;
+
+			count = rhs.length();
+			data_size = rhs.data_size;
+			data = new T[data_size];
+
+			for (int i = 0; i < rhs.length(); i++)
+				data[i] = rhs[i];
+
 			return *this;
-
-		if (data != null)
-			delete[] data;
-
-		count = rhs.length();
-		data_size = rhs.data_size;
-		data = new T[data_size];
-
-		for (int i = 0; i < rhs.length(); i++)
-			data[i] = rhs[i];
-
-		return *this;
-	}
-
-	bool append(T item)
-	{
-		if (count == data_size)
-		{
-			data_size *= 2;
-			T* temp = data;
-			if (!(data = new T[data_size]))
-				return false;
-			for (int i = 0; i < count; i++)
-				data[i] = temp[i];
-			delete temp;
 		}
 
-		data[count++] = item;
-		return true;
-	}
-
-	bool truncate()
-	{
-		if (count != data_size)
+		bool append(T item)
 		{
-			T* temp = data;
-			data_size = count;
-			if (!(data = new T[data_size]))
-				return false;
-			for (int i = 0; i < count; i++)
-				data[i] = temp[i];
-			delete temp;
+			if (count == data_size)
+			{
+				data_size *= 2;
+				T* temp = data;
+				if (!(data = new T[data_size]))
+					return false;
+				for (int i = 0; i < count; i++)
+					data[i] = temp[i];
+				delete temp;
+			}
+
+			data[count++] = item;
+			return true;
 		}
-	}
 
-	void clear()
-	{
-		count = 0;
-	}
+		bool truncate()
+		{
+			if (count != data_size)
+			{
+				T* temp = data;
+				data_size = count;
+				if (!(data = new T[data_size]))
+					return false;
+				for (int i = 0; i < count; i++)
+					data[i] = temp[i];
+				delete temp;
+			}
+		}
 
-	int length() const
-	{
-		return count;
-	}
+		void clear()
+		{
+			count = 0;
+		}
 
-	bool empty() const
-	{
-		return length() == 0;
-	}
+		int length() const
+		{
+			return count;
+		}
 
-	const T& operator[](int i) const
-	{
-		return data[i];
-	}
+		bool empty() const
+		{
+			return length() == 0;
+		}
 
-	T& operator[](int i)
-	{
-		return data[i];
-	}
+		const T& operator[](int i) const
+		{
+			return data[i];
+		}
 
-private:
-	T* data;
-	int data_size;
-	int count;
-};
+		T& operator[](int i)
+		{
+			return data[i];
+		}
+
+	private:
+		T* data;
+		int data_size;
+		int count;
+	};
+}
 
 #endif

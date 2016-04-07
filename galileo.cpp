@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "image.h"
+using namespace galileo;
 
 int main()
 {
