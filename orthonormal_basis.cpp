@@ -2,9 +2,9 @@
 
 #define ONB_EPSILON 0.01f
 
-#define U basis[0]
-#define V basis[1]
-#define W basis[2]
+#define U data[0]
+#define V data[1]
+#define W data[2]
 
 void galileo::orthonormal_basis::init_from_u(const vector3& u)
 {

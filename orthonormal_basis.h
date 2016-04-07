@@ -14,46 +14,46 @@ namespace galileo
 
 		orthonormal_basis(const vector3& u, const vector3& v, const vector3& w)
 		{
-			basis[0] = u;
-			basis[1] = v;
-			basis[2] = w;
+			data[0] = u;
+			data[1] = v;
+			data[2] = w;
 		}
 
 		vector3& u()
 		{
-			return basis[0];
-		}
-
-		const vector3& u() const
-		{
-			return basis[0];
+			return data[0];
 		}
 
 		vector3& v()
 		{
-			return basis[1];
-		}
-
-		const vector3& v() const
-		{
-			return basis[1];
+			return data[1];
 		}
 
 		vector3& w()
 		{
-			return basis[2];
+			return data[2];
+		}
+
+		const vector3& u() const
+		{
+			return data[0];
+		}
+
+		const vector3& v() const
+		{
+			return data[1];
 		}
 
 		const vector3& w() const
 		{
-			return basis[2];
+			return data[2];
 		}
 
 		inline void set(const vector3& u, const vector3& v, const vector3& w)
 		{
-			basis[0] = u;
-			basis[1] = v;
-			basis[2] = w;
+			data[0] = u;
+			data[1] = v;
+			data[2] = w;
 		}
 
 		void init_from_u(const vector3& u);
@@ -70,18 +70,17 @@ namespace galileo
 		void init_from_wv(const vector3& w, const vector3& v);
 
 	public:
-		vector3 basis[3];
+		vector3 data[3];
 	};
-
 
 	inline bool operator==(const orthonormal_basis& o1, const orthonormal_basis& o2)
 	{
-		return (o1.basis[0] == o2.basis[0] && o1.basis[1] == o2.basis[1] && o1.basis[2] == o2.basis[2]);
+		return (o1.data[0] == o2.data[0] && o1.data[1] == o2.data[1] && o1.data[2] == o2.data[2]);
 	}
 
 	inline bool operator!=(const orthonormal_basis& o1, const orthonormal_basis& o2)
 	{
-		return (o1.basis[0] != o2.basis[0] || o1.basis[1] != o2.basis[1] || o1.basis[2] != o2.basis[2]);
+		return (o1.data[0] != o2.data[0] || o1.data[1] != o2.data[1] || o1.data[2] != o2.data[2]);
 	}
 
 	inline std::istream& operator>>(std::istream& is, orthonormal_basis& o)
@@ -94,7 +93,7 @@ namespace galileo
 
 	inline std::ostream& operator<<(std::ostream& os, const orthonormal_basis& o)
 	{
-		return (os << o.basis[0] << o.basis[1] << o.basis[2]);
+		return (os << o.data[0] << o.data[1] << o.data[2]);
 	}
 }
 
