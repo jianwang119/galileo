@@ -7,6 +7,14 @@
 namespace galileo
 {
 	template<typename T>
+	void swap(T& t1, T& t2)
+	{
+		T tmp = t1;
+		t1 = t2;
+		t2 = tmp;
+	}
+
+	template<typename T>
 	T clamp(T f, T min, T max)
 	{
 		T v = f;
@@ -33,6 +41,12 @@ namespace galileo
 	T max(T t1, T t2)
 	{
 		return t1 > t2 ? t1 : t2;
+	}
+
+	inline FLOAT fdet3(FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT e, FLOAT f,
+		FLOAT g, FLOAT h, FLOAT i)
+	{
+		return a*e*i + d*h*c + g*b*f - g*e*c - d*b*i - a*h*f;
 	}
 
 	inline FLOAT fclamp01(FLOAT f)

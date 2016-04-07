@@ -228,7 +228,7 @@ namespace galileo
 		return vector3(v.e[0] / f, v.e[1] / f, v.e[2] / f);
 	}
 
-	inline vector3 unit(const vector3& v)
+	inline vector3 normalize(const vector3& v)
 	{
 		float k = 1.0f / sqrt(v.e[0] * v.e[0] + v.e[1] * v.e[1] + v.e[2] * v.e[2]);
 		return vector3(v.e[0] * k, v.e[1] * k, v.e[2] * k);

@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="galileo.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="matrix4.cpp" />
     <ClCompile Include="orthonormal_basis.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="global_define.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="math_utils.h" />
+    <ClInclude Include="matrix4.h" />
     <ClInclude Include="orthonormal_basis.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="ray.h" />
