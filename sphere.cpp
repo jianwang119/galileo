@@ -37,7 +37,7 @@ bool galileo::sphere::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 	return false;
 }
 
-bool galileo::sphere::fast_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
+bool galileo::sphere::shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
 {
 	vector3 temp = r.origin() - center;
 	float twoa = 2.0f * dot(r.direction(), r.direction());

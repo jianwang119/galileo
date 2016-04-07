@@ -28,7 +28,7 @@ namespace galileo
 		virtual bool hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 			surface_hit_record& rec) const = 0;
 
-		virtual bool fast_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
+		virtual bool shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
 		{
 			surface_hit_record rec;
 			return hit(r, tmin, tmax, time, rec);

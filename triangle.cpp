@@ -1,48 +1,14 @@
 
 #include "triangle.h"
 #include "material.h"
+#include "math_geo.h"
 
 bool galileo::triangle::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time, 
 	surface_hit_record& rec) const
 {
-	FLOAT A = p0.x() - p1.x();
-	FLOAT B = p0.y() - p1.y();
-	FLOAT C = p0.z() - p1.z();
-
-	FLOAT D = p0.x() - p2.x();
-	FLOAT E = p0.y() - p2.y();
-	FLOAT F = p0.z() - p2.z();
-
-	FLOAT G = r.direction().x();
-	FLOAT H = r.direction().y();
-	FLOAT I = r.direction().z();
-
-	FLOAT J = p0.x() - r.origin().x();
-	FLOAT K = p0.y() - r.origin().y();
-	FLOAT L = p0.z() - r.origin().z();
-
-	FLOAT EIHF = E * I - H * F;
-	FLOAT GFDI = G * F - D * I;
-	FLOAT DHEG = D * H - E * G;
-
-	FLOAT denom = (A * EIHF + B * GFDI + C * DHEG);
-	if (fequal(denom, 0.0f))
-		return false;
-
-	FLOAT beta = (J * EIHF + K * GFDI + L * DHEG) / denom;
-	if (beta <= 0.0f || beta >= 1.0f)
-		return false;
-
-	FLOAT AKJB = A * K - J * B;
-	FLOAT JCAL = J * C - A * L;
-	FLOAT BLKC = B * L - K * C;
-
-	FLOAT gamma = (I * AKJB + H * JCAL + G * BLKC) / denom;
-	if (gamma <= 0.0f || beta + gamma >= 1.0f) 
-		return false;
-
-	FLOAT t = -(F * AKJB + E * JCAL + D * BLKC) / denom;
-	if (t >= tmin && t <= tmax)
+	FLOAT t, beta, gamma;
+	
+	if (triangle_intersect(r, tmin, tmax, p0, p1, p2, t, beta, gamma))
 	{
 		rec.mat = mat;
 		rec.pt = rec.tex_pt = r.get_point(t);
