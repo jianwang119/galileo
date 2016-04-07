@@ -14,6 +14,4 @@
 #define S64 signed long long
 #define FLOAT float
 
-#define FLOAT_EPSILON 1.0e-5f
-
 #endif

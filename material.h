@@ -17,19 +17,19 @@ namespace galileo
 		}
 
 		virtual rgb emitted_radiance(const orthonormal_basis& frame,
-			const vector3& v_out, const vector3& p, const vector2& uv)
+			const vector3& v_out, const vector3& on_light, const vector2& uv)
 		{
 			return rgb(0, 0, 0);
 		}
 
 		virtual rgb ambient_response(const orthonormal_basis& frame,
-			const vector3& v, const vector3& p, const vector2& uv)
+			const vector3& v, const vector3& on_light, const vector2& uv)
 		{
 			return rgb(0, 0, 0);
 		}
 
 		virtual bool explicit_brdf(const orthonormal_basis& frame,
-			const vector3& v1, const vector3& v0, const vector3& p, 
+			const vector3& v1, const vector3& v0, const vector3& on_light,
 			const vector2& uv, rgb& brdf) 
 		{
 			return false;

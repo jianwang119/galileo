@@ -20,6 +20,7 @@ bool galileo::sphere::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 		if (t < tmin || t > tmax) 
 			return false;
 
+		rec.mat = mat;
 		rec.pt = rec.tex_pt = r.get_point(t);
 		rec.t = t;
 		vector3 n = (rec.pt - center);
@@ -29,7 +30,6 @@ bool galileo::sphere::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 		if (n.y() < 0.0f) 
 			phi = TWO_PI - phi;
 		rec.uv = vector2(phi / TWO_PI, 1.0f - theta / PI);
-		rec.mat = mat;
 		rec.frame.init_from_w(n);
 		return true;
 	}
@@ -67,14 +67,14 @@ bool galileo::sphere::random_point(const vector3& view_point, const vector2& ase
 	vector2 seed = aseed;
 
 	float sin_alpha_max = (r / d);
-	float cos_alpha_max = sqrt(1 - sin_alpha_max*sin_alpha_max);
+	float cos_alpha_max = sqrt(1 - sin_alpha_max * sin_alpha_max);
 	float q = 1.0f / (TWO_PI * (1 - cos_alpha_max));
 	int counter = 0;
 	
 	do 
 	{
 		float cos_alpha = 1 + seed.x()*(cos_alpha_max - 1);
-		float sin_alpha = sqrt(1 - cos_alpha*cos_alpha);
+		float sin_alpha = sqrt(1 - cos_alpha * cos_alpha);
 
 		float phi = TWO_PI * seed.y();
 		float cos_phi = cos(phi);

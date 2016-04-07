@@ -147,6 +147,7 @@
     <ClCompile Include="matrix4.cpp" />
     <ClCompile Include="orthonormal_basis.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bounds.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="rgb.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="surface.h" />
+    <ClInclude Include="triangle.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />
   </ItemGroup>

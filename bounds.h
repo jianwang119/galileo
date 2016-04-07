@@ -66,15 +66,7 @@ namespace galileo
 
 	inline bounds surround(const bounds& b1, const bounds& b2)
 	{
-		vector3 m1 = vector3(
-			min(b1.min().x(), b2.min().x()),
-			min(b1.min().y(), b2.min().y()),
-			min(b1.min().z(), b2.min().z()));
-		vector3 m2 = vector3(
-			max(b1.max().x(), b2.max().x()),
-			max(b1.max().y(), b2.max().y()),
-			max(b1.max().z(), b2.max().z()));
-		return bounds(m1, m2);
+		return bounds(min(b1.min(), b2.min()), max(b1.max(), b2.max()));
 	}
 }
 

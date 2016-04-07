@@ -11,49 +11,49 @@ namespace galileo
 	public:
 		vector2()
 		{
-			e[0] = e[1] = 0;
+			data[0] = data[1] = 0;
 		}
 
-		vector2(float e0, float e1)
+		vector2(float f0, float f1)
 		{
-			e[0] = e0;
-			e[1] = e1;
+			data[0] = f0;
+			data[1] = f1;
 		}
 
 		vector2(const vector2& v)
 		{
-			e[0] = v.e[0];
-			e[1] = v.e[1];
+			data[0] = v.data[0];
+			data[1] = v.data[1];
 		}
 
 		float x() const
 		{
-			return e[0];
+			return data[0];
 		}
 
 		float y() const
 		{
-			return e[1];
+			return data[1];
 		}
 
 		void set_x(float f)
 		{
-			e[0] = f;
+			data[0] = f;
 		}
 
 		void set_y(float f)
 		{
-			e[1] = f;
+			data[1] = f;
 		}
 
 		FLOAT length() const
 		{
-			return sqrt(e[0] * e[0] + e[1] * e[1]);
+			return sqrt(squraed_length());
 		}
 
 		FLOAT squraed_length() const
 		{
-			return e[0] * e[0] + e[1] * e[1];
+			return data[0] * data[0] + data[1] * data[1];
 		}
 
 		void normalize();
@@ -67,66 +67,85 @@ namespace galileo
 
 		vector2 operator-() const
 		{
-			return vector2(-e[0], -e[1]);
+			return vector2(-data[0], -data[1]);
 		}
 
 		FLOAT operator[](int i) const
 		{
-			return e[i];
+			return data[i];
 		}
 
 		FLOAT& operator[](int i)
 		{
-			return e[i];
+			return data[i];
 		}
 
 		vector2& operator+=(const vector2& v)
 		{
-			e[0] += v.e[0];
-			e[1] += v.e[1];
+			data[0] += v.data[0];
+			data[1] += v.data[1];
 			return *this;
 		}
 
 		vector2& operator-=(const vector2& v)
 		{
-			e[0] -= v.e[0];
-			e[1] -= v.e[1];
+			data[0] -= v.data[0];
+			data[1] -= v.data[1];
+			return *this;
+		}
+
+		vector2& operator+=(const FLOAT f)
+		{
+			data[0] += f;
+			data[1] += f;
+			return *this;
+		}
+
+		vector2& operator-=(const FLOAT f)
+		{
+			data[0] -= f;
+			data[1] -= f;
 			return *this;
 		}
 
 		vector2& operator*=(const FLOAT f)
 		{
-			e[0] *= f;
-			e[1] *= f;
+			data[0] *= f;
+			data[1] *= f;
 			return *this;
 		}
 
 		vector2& operator/=(const FLOAT f)
 		{
-			e[0] /= f;
-			e[1] /= f;
+			data[0] /= f;
+			data[1] /= f;
 			return *this;
 		}
+
 	public:
-		FLOAT e[2];
+		FLOAT data[2];
 	};
 
 	inline void vector2::scramble()
 	{
 		float _x;
-		float _y = e[0];
+		float _y = data[0];
 
-		_x = e[1] * 1234.12345054321f;
-		e[0] = _x - (int)_x;
+		_x = data[1] * 1234.12345054321f;
+		data[0] = _x - (int)_x;
 		_y = _y * 7654.54321012345f;
-		e[1] = _y - (int)_y;
+		data[1] = _y - (int)_y;
 	}
 
 	inline void vector2::normalize()
 	{
-		float k = 1.0f / sqrt(e[0] * e[0] + e[1] * e[1]);
-		e[0] *= k;
-		e[1] *= k;
+		FLOAT len = length();
+		if (len > 0)
+		{
+			float k = 1.0f / len;
+			data[0] *= k;
+			data[1] *= k;
+		}
 	}
 
 	inline bool operator==(const vector2& v1, const vector2& v2)
@@ -151,38 +170,58 @@ namespace galileo
 
 	inline vector2 operator+(const vector2& v1, const vector2& v2)
 	{
-		return vector2(v1.e[0] + v2.e[0], v1.e[1] + v2.e[1]);
+		return vector2(v1.data[0] + v2.data[0], v1.data[1] + v2.data[1]);
 	}
 
 	inline vector2 operator-(const vector2& v1, const vector2& v2)
 	{
-		return vector2(v1.e[0] - v2.e[0], v1.e[1] - v2.e[1]);
+		return vector2(v1.data[0] - v2.data[0], v1.data[1] - v2.data[1]);
+	}
+
+	inline vector2 operator+(const vector2& v, float f)
+	{
+		return vector2(v.data[0] + f, v.data[1] + f);
+	}
+
+	inline vector2 operator-(const vector2& v, float f)
+	{
+		return vector2(v.data[0] - f, v.data[1] - f);
 	}
 
 	inline vector2 operator*(float f, const vector2& v)
 	{
-		return vector2(f * v.e[0], f * v.e[1]);
+		return vector2(v.data[0] * f, v.data[1] * f);
 	}
 
 	inline vector2 operator*(const vector2& v, float f)
 	{
-		return vector2(f * v.e[0], f * v.e[1]);
+		return vector2(v.data[0] * f, v.data[1] * f);
 	}
 
 	inline vector2 operator/(const vector2 &v, float f)
 	{
-		return vector2(v.e[0] / f, v.e[1] / f);
+		return vector2(v.data[0] / f, v.data[1] / f);
+	}
+
+	inline vector2 min(const vector2& v1, const vector2& v2)
+	{
+		return vector2(min(v1.x(), v2.x()), min(v1.y(), v2.y()));
+	}
+
+	inline vector2 max(const vector2& v1, const vector2& v2)
+	{
+		return vector2(max(v1.x(), v2.x()), max(v1.y(), v2.y()));
 	}
 
 	inline vector2 unit(const vector2& v)
 	{
-		float k = 1.0f / sqrt(v.e[0] * v.e[0] + v.e[1] * v.e[1]);
-		return vector2(v.e[0] * k, v.e[1] * k);
+		float k = 1.0f / sqrt(v.data[0] * v.data[0] + v.data[1] * v.data[1]);
+		return vector2(v.data[0] * k, v.data[1] * k);
 	}
 
 	inline float dot(const vector2& v1, const vector2& v2)
 	{
-		return v1.e[0] * v2.e[0] + v1.e[1] * v2.e[1];
+		return v1.data[0] * v2.data[0] + v1.data[1] * v2.data[1];
 	}
 }
 
