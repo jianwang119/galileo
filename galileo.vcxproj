@@ -146,18 +146,21 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="matrix4.cpp" />
     <ClCompile Include="orthonormal_basis.cpp" />
+    <ClCompile Include="sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bounds.h" />
     <ClInclude Include="dynamic_array.h" />
     <ClInclude Include="global_define.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="math_utils.h" />
     <ClInclude Include="matrix4.h" />
     <ClInclude Include="orthonormal_basis.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="rgb.h" />
+    <ClInclude Include="sphere.h" />
     <ClInclude Include="surface.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />

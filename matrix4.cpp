@@ -6,7 +6,6 @@ void galileo::matrix4::inverse()
 	float det = determinant();
 
 	matrix4 inverse;
-
 	inverse.data[0][0] = fdet3(
 		data[1][1], data[1][2], data[1][3],
 		data[2][1], data[2][2], data[2][3],
@@ -23,7 +22,6 @@ void galileo::matrix4::inverse()
 		data[0][1], data[0][2], data[0][3],
 		data[1][1], data[1][2], data[1][3],
 		data[2][1], data[2][2], data[2][3]) / det;
-
 	inverse.data[1][0] = -fdet3(
 		data[1][0], data[1][2], data[1][3],
 		data[2][0], data[2][2], data[2][3],
@@ -40,7 +38,6 @@ void galileo::matrix4::inverse()
 		data[0][0], data[0][2], data[0][3],
 		data[1][0], data[1][2], data[1][3],
 		data[2][0], data[2][2], data[2][3]) / det;
-
 	inverse.data[2][0] = fdet3(
 		data[1][0], data[1][1], data[1][3],
 		data[2][0], data[2][1], data[2][3],
@@ -57,7 +54,6 @@ void galileo::matrix4::inverse()
 		data[0][0], data[0][1], data[0][3],
 		data[1][0], data[1][1], data[1][3],
 		data[2][0], data[2][1], data[2][3]) / det;
-
 	inverse.data[3][0] = -fdet3(
 		data[1][0], data[1][1], data[1][2],
 		data[2][0], data[2][1], data[2][2],
@@ -74,7 +70,6 @@ void galileo::matrix4::inverse()
 		data[0][0], data[0][1], data[0][2],
 		data[1][0], data[1][1], data[1][2],
 		data[2][0], data[2][1], data[2][2]) / det;
-
 	*this = inverse;
 }
 

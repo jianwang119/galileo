@@ -6,6 +6,10 @@
 
 namespace galileo
 {
+	#define PI 3.14159265359f
+	#define TWO_PI 6.28318530718f
+	#define HALF_PI 1.570796326795f
+
 	template<typename T>
 	void swap(T& t1, T& t2)
 	{

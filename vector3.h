@@ -63,7 +63,7 @@ namespace galileo
 			return sqrt(e[0] * e[0] + e[1] * e[1] + e[2] * e[2]);
 		}
 
-		FLOAT squraed_length() const
+		FLOAT squared_length() const
 		{
 			return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
 		}

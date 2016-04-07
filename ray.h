@@ -58,7 +58,7 @@ namespace galileo
 			posneg[5] = posneg[4] ^ 1;
 		}
 
-		vector3 get_point(FLOAT t)
+		vector3 get_point(FLOAT t) const
 		{
 			return data[0] + t * data[1];
 		}
