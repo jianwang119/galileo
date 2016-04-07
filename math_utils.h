@@ -15,6 +15,12 @@ T clamp(T f, T min, T max)
 	return f;
 }
 
+template<typename T>
+T lerp(T s, T e, FLOAT f)
+{
+	return s * f + e * (1 - f);
+}
+
 inline FLOAT fclamp01(FLOAT f)
 {
 	return clamp<FLOAT>(f, 0.0f, 1.0f);
