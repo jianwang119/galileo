@@ -75,9 +75,10 @@ void test_multi_sample_ray_tracer(int mx, int my)
 	c_ray r(o, d);
 	c_surface_hit_record hit_record;
 
-	c_jitter_sample2 jitter(mx, my);
+	//c_jitter_sample2 sampler(mx, my);
+	c_ham_sample2 sampler(mx * my);
 	c_vector2* a = new c_vector2[mx * my];
-	jitter.generate(a);
+	sampler.generate(a);
 
 	for (int i = 0; i < 500; i++)
 	{
@@ -129,7 +130,7 @@ void test_multi_sample_ray_tracer(int mx, int my)
 int main()
 {
 	//test_single_sample_ray_tracer();
-	test_multi_sample_ray_tracer(4,4);
+	test_multi_sample_ray_tracer(3,3);
     return 0;
 }
 
