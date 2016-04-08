@@ -6,39 +6,39 @@
 
 namespace galileo
 {
-	class image
+	class c_image
 	{
 	public:
-		image()
+		c_image()
 		{
 			w = h = 0;
 		}
 
-		image(int _w, int _h)
+		c_image(int _w, int _h)
 		{
 			w = _w;
 			h = _h;
-			data = new rgb*[w];
+			data = new c_rgb*[w];
 			for (int i = 0; i < w; i++)
 			{
-				data[i] = new rgb[h];
+				data[i] = new c_rgb[h];
 			}
 		}
 
-		image(int _w, int _h, const rgb& c)
+		c_image(int _w, int _h, const c_rgb& c)
 		{
 			w = _w;
 			h = _h;
-			data = new rgb*[w];
+			data = new c_rgb*[w];
 			for (int i = 0; i < w; i++)
 			{
-				data[i] = new rgb[h];
+				data[i] = new c_rgb[h];
 				for (int j = 0; j < h; j++)
 					data[i][j] = c;
 			}
 		}
 
-		~image()
+		~c_image()
 		{
 			if (data != 0)
 			{
@@ -48,12 +48,12 @@ namespace galileo
 			}
 		}
 
-		void set_pixel(int x, int y, const rgb& c)
+		void set_pixel(int x, int y, const c_rgb& c)
 		{
 			data[x][y] = c;
 		}
 
-		void set_pixel_safty(int x, int y, const rgb& c)
+		void set_pixel_safty(int x, int y, const c_rgb& c)
 		{
 			if (x >= 0 && x < w && y >= 0 && y < h)
 			{
@@ -61,7 +61,7 @@ namespace galileo
 			}
 		}
 
-		const rgb& get_pixel(int x, int y) const
+		const c_rgb& get_pixel(int x, int y) const
 		{
 			x = clamp(x, 0, w - 1);
 			y = clamp(y, 0, h - 1);
@@ -83,7 +83,7 @@ namespace galileo
 		void write_PPM(std::ostream& s) const;
 
 	private:
-		rgb** data;
+		c_rgb** data;
 		int w;
 		int h;
 	};

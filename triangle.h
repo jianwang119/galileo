@@ -5,15 +5,15 @@
 
 namespace galileo
 {
-	class triangle : public surface
+	class c_triangle : public c_surface
 	{
 	public:
-		triangle()
+		c_triangle()
 		{
 		}
 		
-		triangle(const vector3& _p0, const vector3& _p1, const vector3& _p2,
-			material* m)
+		c_triangle(const c_vector3& _p0, const c_vector3& _p1, const c_vector3& _p2,
+			c_material* m)
 		{
 			p0 = _p0;
 			p1 = _p1;
@@ -21,9 +21,9 @@ namespace galileo
 			mat = m;
 		}
 
-		triangle(const vector3& _p0, const vector3& _p1, const vector3& _p2,
-			const vector2& _u0, const vector2& _u1, const vector2& _u2,
-			material* m)
+		c_triangle(const c_vector3& _p0, const c_vector3& _p1, const c_vector3& _p2,
+			const c_vector2& _u0, const c_vector2& _u1, const c_vector2& _u2,
+			c_material* m)
 		{
 			p0 = _p0;
 			p1 = _p1;
@@ -34,32 +34,32 @@ namespace galileo
 			mat = m;
 		}
 
-		virtual bool hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
-			surface_hit_record& rec) const;
+		virtual bool hit(const c_ray& r, t_float tmin, t_float tmax, t_float time,
+			c_surface_hit_record& rec) const;
 
-		virtual bool shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const;
+		virtual bool shadow_hit(const c_ray& r, t_float tmin, t_float tmax, t_float time) const;
 
-		virtual bool random_point(const vector3& view_point, const vector2& aseed,
-			FLOAT time, vector3& on_light, vector3& normal, FLOAT& pdf,
-			rgb& emitted_radiance) const;
+		virtual bool random_point(const c_vector3& view_point, const c_vector2& aseed,
+			t_float time, c_vector3& on_light, c_vector3& normal, t_float& pdf,
+			c_rgb& emitted_radiance) const;
 
-		virtual bounds aabb(FLOAT time0, FLOAT time1) const
+		virtual c_bounds aabb(t_float time0, t_float time1) const
 		{
-			vector3 m1 = min(min(p0, p1), p2);
-			vector3 m2 = max(max(p0, p1), p2);
-			m1 -= FLOAT_EPSILON;
-			m2 += FLOAT_EPSILON;
-			return bounds(m1, m2);
+			c_vector3 m1 = min(min(p0, p1), p2);
+			c_vector3 m2 = max(max(p0, p1), p2);
+			m1 -= FLT_EPSILON;
+			m2 += FLT_EPSILON;
+			return c_bounds(m1, m2);
 		}
 
 	public:
-		vector3 p0;
-		vector3 p1;
-		vector3 p2;
-		vector2 u0;
-		vector2 u1;
-		vector2 u2;
-		material* mat;
+		c_vector3 p0;
+		c_vector3 p1;
+		c_vector3 p2;
+		c_vector2 u0;
+		c_vector2 u1;
+		c_vector2 u2;
+		c_material* mat;
 	};
 }
 

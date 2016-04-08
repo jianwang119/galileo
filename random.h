@@ -6,28 +6,28 @@
 namespace galileo
 {
 	// linear congruence algorithm
-	class random
+	class c_random
 	{
 	public:
-		random(U64 _seed = 7654321ULL)
+		c_random(t_u64 _seed = 7654321ULL)
 		{
 			seed = _seed;
 			mult = 62089911ULL;
 			u64_max = 4294967295ULL;
-			float_max = 4294967295.0f;
+			flt_max = 4294967295.0f;
 		}
 
-		inline FLOAT operator()()
+		inline t_float operator()()
 		{
 			seed = mult * seed;
-			return FLOAT(seed % u64_max) / float_max;
+			return t_float(seed % u64_max) / flt_max;
 		}
 
 	public:
-		U64 seed;
-		U64 mult;
-		U64 u64_max;
-		FLOAT float_max;
+		t_u64 seed;
+		t_u64 mult;
+		t_u64 u64_max;
+		t_float flt_max;
 	};
 }
 

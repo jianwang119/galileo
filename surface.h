@@ -5,77 +5,77 @@
 #include "bounds.h"
 #include "vector2.h"
 #include "vector3.h"
-#include "orthonormal_basis.h"
+#include "ortho_basis.h"
 
 namespace galileo
 {
-	class material;
+	class c_material;
 
-	class surface_hit_record 
+	class c_surface_hit_record 
 	{
 	public:
-		FLOAT t;
-		vector3 pt;
-		vector3 tex_pt;
-		orthonormal_basis frame;
-		vector2 uv;
-		material* mat;
-		U32 instance_id;
+		t_float t;
+		c_vector3 pt;
+		c_vector3 tex_pt;
+		c_ortho_basis frame;
+		c_vector2 uv;
+		c_material* mat;
+		t_u32 instance_id;
 	};
 
-	class surface
+	class c_surface
 	{
 	public:
-		surface()
+		c_surface()
 		{
 			instance_id = instance_id_counter++;
 		}
 
-		U32 id() const
+		t_u32 id() const
 		{
 			return instance_id;
 		}
 
-		virtual bool hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
-			surface_hit_record& rec) const = 0;
+		virtual bool hit(const c_ray& r, t_float tmin, t_float tmax, t_float time,
+			c_surface_hit_record& rec) const = 0;
 
-		virtual bool shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
+		virtual bool shadow_hit(const c_ray& r, t_float tmin, t_float tmax, t_float time) const
 		{
-			surface_hit_record rec;
+			c_surface_hit_record rec;
 			return hit(r, tmin, tmax, time, rec);
 		}
 
-		virtual bool random_point(const vector3& view_point, const vector2& aseed, 
-			FLOAT time, vector3& on_light, vector3& normal, FLOAT& pdf,
-			rgb& emitted_radiance) const = 0;
+		virtual bool random_point(const c_vector3& view_point, const c_vector2& aseed, 
+			t_float time, c_vector3& on_light, c_vector3& normal, t_float& pdf,
+			c_rgb& emitted_radiance) const = 0;
 
-		virtual bounds aabb(FLOAT time0, FLOAT time1) const = 0;
+		virtual c_bounds aabb(t_float time0, t_float time1) const = 0;
 
-		virtual S32 caustic_photons() 
+		virtual t_s32 caustic_photons() 
 		{ 
 			return 0; 
 		}
 		
-		virtual S32 global_photons()
+		virtual t_s32 global_photons()
 		{ 
 			return 0; 
 		}
 
-		virtual rgb photon_color() 
+		virtual c_rgb photon_color() 
 		{ 
-			return rgb(0, 0, 0); 
+			return c_rgb(0, 0, 0); 
 		}
 
-		virtual bool generate_photon(ray& r, const vector2&, const vector2&)
+		virtual bool generate_photon(c_ray& r, const c_vector2&, const c_vector2&)
 		{
 			return false;
 		}
 
 	protected:
-		U32 instance_id;
+		t_u32 instance_id;
 
 	protected:
-		static U32 instance_id_counter;
+		static t_u32 instance_id_counter;
 	};
 }
 

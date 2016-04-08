@@ -6,14 +6,14 @@
 
 namespace galileo
 {
-	class matrix4
+	class c_matrix4
 	{
 	public:
-		matrix4()
+		c_matrix4()
 		{
 		}
 
-		matrix4(const matrix4& m)
+		c_matrix4(const c_matrix4& m)
 		{
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
@@ -22,23 +22,23 @@ namespace galileo
 
 		void inverse();
 		void transpose();
-		float determinant();
+		t_float determinant();
 
-		inline matrix4 get_inverse()
+		inline c_matrix4 get_inverse()
 		{
-			matrix4 ret = *this;
+			c_matrix4 ret = *this;
 			ret.inverse();
 			return ret;
 		}
 
-		inline matrix4 get_transpose()
+		inline c_matrix4 get_transpose()
 		{
-			matrix4 ret = *this;
+			c_matrix4 ret = *this;
 			ret.transpose();
 			return ret;
 		}
 
-		matrix4& operator+=(const matrix4& m)
+		c_matrix4& operator+=(const c_matrix4& m)
 		{
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
@@ -46,7 +46,7 @@ namespace galileo
 			return *this;
 		}
 
-		matrix4& operator-=(const matrix4& m)
+		c_matrix4& operator-=(const c_matrix4& m)
 		{
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
@@ -54,13 +54,13 @@ namespace galileo
 			return *this;
 		}
 
-		matrix4& operator*=(const matrix4& m)
+		c_matrix4& operator*=(const c_matrix4& m)
 		{
-			matrix4 ret = *this;
+			c_matrix4 ret = *this;
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
 				{
-					float sum = 0;
+					t_float sum = 0;
 					for (int k = 0; k < 4; k++)
 						sum += ret.data[i][k] * m.data[k][j];
 					data[i][j] = sum;
@@ -68,7 +68,7 @@ namespace galileo
 			return *this;
 		}
 
-		matrix4& operator*=(FLOAT f)
+		c_matrix4& operator*=(t_float f)
 		{
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
@@ -77,21 +77,21 @@ namespace galileo
 		}
 
 	public:
-		float data[4][4];
+		t_float data[4][4];
 
 	public:
-		static matrix4 zero()
+		static c_matrix4 zero()
 		{
-			matrix4 ret;
+			c_matrix4 ret;
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
 					ret.data[i][j] = 0.0f;
 			return ret;
 		}
 
-		static matrix4 identity()
+		static c_matrix4 identity()
 		{
-			matrix4 ret;
+			c_matrix4 ret;
 			for (int i = 0; i < 4; i++)
 				for (int j = 0; j < 4; j++)
 					ret.data[i][j] = 0.0f;
@@ -103,7 +103,7 @@ namespace galileo
 		}
 	};
 
-	inline std::ostream& operator<<(std::ostream& os, const matrix4& m)
+	inline std::ostream& operator<<(std::ostream& os, const c_matrix4& m)
 	{
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
@@ -111,31 +111,31 @@ namespace galileo
 		return os;
 	}
 
-	inline matrix4 operator+(const matrix4& m1, const matrix4& m2)
+	inline c_matrix4 operator+(const c_matrix4& m1, const c_matrix4& m2)
 	{
-		matrix4 ret;
+		c_matrix4 ret;
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
 				ret.data[i][j] = m1.data[i][j] + m2.data[i][j];
 		return ret;
 	}
 
-	inline matrix4 operator-(const matrix4& m1, const matrix4& m2)
+	inline c_matrix4 operator-(const c_matrix4& m1, const c_matrix4& m2)
 	{
-		matrix4 ret;
+		c_matrix4 ret;
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
 				ret.data[i][j] = m1.data[i][j] - m2.data[i][j];
 		return ret;
 	}
 
-	inline matrix4 operator*(const matrix4& m1, const matrix4& m2)
+	inline c_matrix4 operator*(const c_matrix4& m1, const c_matrix4& m2)
 	{
-		matrix4 ret;
+		c_matrix4 ret;
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
 			{
-				float subt = 0.0;
+				t_float subt = 0.0;
 				for (int k = 0; k < 4; k++)
 					subt += m1.data[i][k] * m2.data[k][j];
 				ret.data[i][j] = subt;
@@ -143,10 +143,10 @@ namespace galileo
 		return ret;
 	}
 
-	inline vector3 operator*(const matrix4& m, const vector3& v)
+	inline c_vector3 operator*(const c_matrix4& m, const c_vector3& v)
 	{
-		vector3 ret;
-		float temp;
+		c_vector3 ret;
+		t_float temp;
 		ret[0] = v[0] * m.data[0][0] + v[1] * m.data[0][1] + v[2] * m.data[0][2] + m.data[0][3];
 		ret[1] = v[0] * m.data[1][0] + v[1] * m.data[1][1] + v[2] * m.data[1][2] + m.data[1][3];
 		ret[2] = v[0] * m.data[2][0] + v[1] * m.data[2][1] + v[2] * m.data[2][2] + m.data[2][3];
@@ -155,32 +155,32 @@ namespace galileo
 		return ret;
 	}
 	
-	inline matrix4 operator* (const matrix4 & m, float f)
+	inline c_matrix4 operator* (const c_matrix4 & m, t_float f)
 	{
-		matrix4 ret;
+		c_matrix4 ret;
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
 				ret.data[i][j] = m.data[i][j] * f;
 		return ret;
 	}
 
-	inline vector3 transform_point(const matrix4& m, const vector3& pt)
+	inline c_vector3 transform_point(const c_matrix4& m, const c_vector3& pt)
 	{
 		return m * pt;
 	}
 
-	inline vector3 transform_vector(const matrix4& m, const vector3& v)
+	inline c_vector3 transform_vector(const c_matrix4& m, const c_vector3& v)
 	{
-		vector3 ret;
+		c_vector3 ret;
 		ret[0] = v[0] * m.data[0][0] + v[1] * m.data[0][1] + v[2] * m.data[0][2];
 		ret[1] = v[0] * m.data[1][0] + v[1] * m.data[1][1] + v[2] * m.data[1][2];
 		ret[2] = v[0] * m.data[2][0] + v[1] * m.data[2][1] + v[2] * m.data[2][2];
 		return ret;
 	}
 
-	inline matrix4 translate(FLOAT x, FLOAT y, FLOAT z)
+	inline c_matrix4 translate(t_float x, t_float y, t_float z)
 	{
-		matrix4 ret = matrix4::identity();
+		c_matrix4 ret = c_matrix4::identity();
 		ret.data[0][3] = x;
 		ret.data[1][3] = y;
 		ret.data[2][3] = z;
@@ -188,9 +188,9 @@ namespace galileo
 
 	}
 
-	inline matrix4 scale(FLOAT x, FLOAT y, FLOAT z)
+	inline c_matrix4 scale(t_float x, t_float y, t_float z)
 	{
-		matrix4 ret = matrix4::zero();
+		c_matrix4 ret = c_matrix4::zero();
 		ret.data[0][0] = x;
 		ret.data[1][1] = y;
 		ret.data[2][2] = z;
@@ -198,11 +198,11 @@ namespace galileo
 		return ret;
 	}
 
-	inline matrix4 rotateX(FLOAT radian)
+	inline c_matrix4 rotateX(t_float radian)
 	{
-		matrix4 ret = matrix4::identity();
-		float cosine = cos(radian);
-		float sine = sin(radian);
+		c_matrix4 ret = c_matrix4::identity();
+		t_float cosine = cos(radian);
+		t_float sine = sin(radian);
 		ret.data[1][1] = cosine;
 		ret.data[1][2] = -sine;
 		ret.data[2][1] = sine;
@@ -210,11 +210,11 @@ namespace galileo
 		return ret;
 	}
 
-	inline matrix4 rotateY(FLOAT radian)
+	inline c_matrix4 rotateY(t_float radian)
 	{
-		matrix4 ret = matrix4::identity();
-		float cosine = cos(radian);
-		float sine = sin(radian);
+		c_matrix4 ret = c_matrix4::identity();
+		t_float cosine = cos(radian);
+		t_float sine = sin(radian);
 		ret.data[0][0] = cosine;
 		ret.data[0][2] = sine;
 		ret.data[2][0] = -sine;
@@ -222,11 +222,11 @@ namespace galileo
 		return ret;
 	}
 
-	inline matrix4 rotateZ(FLOAT radian)
+	inline c_matrix4 rotateZ(t_float radian)
 	{
-		matrix4 ret = matrix4::identity();
-		float cosine = cos(radian);
-		float sine = sin(radian);
+		c_matrix4 ret = c_matrix4::identity();
+		t_float cosine = cos(radian);
+		t_float sine = sin(radian);
 		ret.data[0][0] = cosine;
 		ret.data[0][1] = -sine;
 		ret.data[1][0] = sine;
@@ -234,9 +234,9 @@ namespace galileo
 		return ret;
 	}
 
-	matrix4 rotate(const vector3 & axis, FLOAT angle);
+	c_matrix4 rotate(const c_vector3 & axis, t_float angle);
 
-	matrix4 view(const vector3& eye, const vector3 & lookat, const vector3& up);
+	c_matrix4 view(const c_vector3& eye, const c_vector3 & lookat, const c_vector3& up);
 }
 
 #endif

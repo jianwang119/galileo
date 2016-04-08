@@ -2,16 +2,16 @@
 
 #include "image.h"
 
-void galileo::image::read_PPM(std::istream& s)
+void galileo::c_image::read_PPM(std::istream& s)
 {
 	std::string file_type, garbage;
-	rgb pix_col;
+	c_rgb pix_col;
 
 	s >> file_type >> w >> h >> garbage;
 
-	data = new rgb*[w];
+	data = new c_rgb*[w];
 	for (int i = 0; i < w; i++)
-		data[i] = new rgb[h];
+		data[i] = new c_rgb[h];
 
 	if (file_type == "P3")
 	{
@@ -21,14 +21,14 @@ void galileo::image::read_PPM(std::istream& s)
 			for (int j = 0; j < w; j++)
 			{
 				s >> red >> green >> blue;
-				pix_col.set_u8((U8)red, (U8)green, (U8)blue);
+				pix_col.set_u8((t_u8)red, (t_u8)green, (t_u8)blue);
 				data[j][i] = pix_col.gamma(2.2f);
 			}
 		}
 	}
 }
 
-void galileo::image::write_PPM(std::ostream& s) const
+void galileo::c_image::write_PPM(std::ostream& s) const
 {
 	s << "P3\n" << w << " " << h << "\n255\n";
 

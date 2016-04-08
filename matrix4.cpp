@@ -1,11 +1,11 @@
 
 #include "matrix4.h"
 
-void galileo::matrix4::inverse()
+void galileo::c_matrix4::inverse()
 {
-	float det = determinant();
+	t_float det = determinant();
 
-	matrix4 inverse;
+	c_matrix4 inverse;
 	inverse.data[0][0] = fdet3(
 		data[1][1], data[1][2], data[1][3],
 		data[2][1], data[2][2], data[2][3],
@@ -73,16 +73,16 @@ void galileo::matrix4::inverse()
 	*this = inverse;
 }
 
-void galileo::matrix4::transpose()
+void galileo::c_matrix4::transpose()
 {
 	for (int i = 0; i < 4; i++)
 		for (int j = 0; j < 4; j++)
 			swap(data[i][j], data[j][i]);
 }
 
-float galileo::matrix4::determinant()
+t_float galileo::c_matrix4::determinant()
 {
-	float det;
+	t_float det;
 	det = data[0][0] * fdet3(
 		data[1][1], data[1][2], data[1][3],
 		data[2][1], data[2][2], data[2][3],
@@ -102,16 +102,16 @@ float galileo::matrix4::determinant()
 	return det;
 }
 
-galileo::matrix4 galileo::rotate(const vector3 & axis, FLOAT radian)
+galileo::c_matrix4 galileo::rotate(const c_vector3 & axis, t_float radian)
 {
-	galileo::matrix4 ret;
-	vector3 _axis = galileo::normalize(axis);
-	float x = _axis.x();
-	float y = _axis.y();
-	float z = _axis.z();
-	float cosine = cos(radian);
-	float sine = sin(radian);
-	float t = 1 - cosine;
+	galileo::c_matrix4 ret;
+	c_vector3 _axis = galileo::normalize(axis);
+	t_float x = _axis.x();
+	t_float y = _axis.y();
+	t_float z = _axis.z();
+	t_float cosine = cos(radian);
+	t_float sine = sin(radian);
+	t_float t = 1 - cosine;
 	ret.data[0][0] = t * x * x + cosine;
 	ret.data[0][1] = t * x * y - sine * y;
 	ret.data[0][2] = t * x * z + sine * y;
@@ -131,12 +131,12 @@ galileo::matrix4 galileo::rotate(const vector3 & axis, FLOAT radian)
 	return ret;
 }
 
-galileo::matrix4 galileo::view(const vector3& eye, const vector3& lookat, const vector3& up)
+galileo::c_matrix4 galileo::view(const c_vector3& eye, const c_vector3& lookat, const c_vector3& up)
 {
-	galileo::matrix4 ret = galileo::matrix4::identity();
-	vector3 w = -(galileo::normalize(lookat));
-	vector3 u = galileo::normalize(cross(up, w));
-	vector3 v = cross(w, u);
+	galileo::c_matrix4 ret = galileo::c_matrix4::identity();
+	c_vector3 w = -(galileo::normalize(lookat));
+	c_vector3 u = galileo::normalize(cross(up, w));
+	c_vector3 v = cross(w, u);
 	ret.data[0][0] = u.x();
 	ret.data[0][1] = u.y();
 	ret.data[0][2] = u.z();
@@ -146,7 +146,7 @@ galileo::matrix4 galileo::view(const vector3& eye, const vector3& lookat, const 
 	ret.data[2][0] = w.x();
 	ret.data[2][1] = w.y();
 	ret.data[2][2] = w.z();
-	galileo::matrix4 move = galileo::matrix4::identity();
+	galileo::c_matrix4 move = galileo::c_matrix4::identity();
 	move.data[0][3] = -(eye.x());
 	move.data[1][3] = -(eye.y());
 	move.data[2][3] = -(eye.z());

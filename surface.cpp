@@ -1,3 +1,3 @@
 #include "surface.h"
 
-U32 galileo::surface::instance_id_counter = 0;
+t_u32 galileo::c_surface::instance_id_counter = 0;

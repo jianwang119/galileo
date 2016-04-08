@@ -6,31 +6,31 @@
 namespace galileo
 {
 	template<class T>
-	class dynamic_array
+	class c_dynamic_array
 	{
 	public:
-		dynamic_array()
+		c_dynamic_array()
 		{
 			count = 0;
 			data_size = 4;
 			data = new T[data_size];
 		}
 
-		dynamic_array(int s)
+		c_dynamic_array(int s)
 		{
 			count = 0;
 			data_size = s;
 			data = new T[data_size];
 		}
 
-		~dynamic_array()
+		~c_dynamic_array()
 		{
 			data_size = 0;
 			if (data != 0)
 				delete[] data;
 		}
 
-		dynamic_array(const dynamic_array<T>& rhs)
+		c_dynamic_array(const c_dynamic_array<T>& rhs)
 		{
 			if (data != 0)
 				delete[] data;
@@ -43,7 +43,7 @@ namespace galileo
 				data[i] = rhs[i];
 		}
 
-		dynamic_array<T>& operator=(const dynamic_array<T>& rhs)
+		c_dynamic_array<T>& operator=(const c_dynamic_array<T>& rhs)
 		{
 			if (&rhs == this)
 				return *this;

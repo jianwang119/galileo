@@ -32,7 +32,7 @@ namespace galileo
 	}
 
 	template<typename T>
-	T lerp(T s, T e, FLOAT f)
+	T lerp(T s, T e, t_float f)
 	{
 		return s * f + e * (1 - f);
 	}
@@ -49,20 +49,20 @@ namespace galileo
 		return t1 > t2 ? t1 : t2;
 	}
 
-	inline FLOAT fdet3(FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT e, FLOAT f,
-		FLOAT g, FLOAT h, FLOAT i)
+	inline t_float fdet3(t_float a, t_float b, t_float c, t_float d, t_float e, t_float f,
+		t_float g, t_float h, t_float i)
 	{
 		return a*e*i + d*h*c + g*b*f - g*e*c - d*b*i - a*h*f;
 	}
 
-	inline FLOAT fclamp01(FLOAT f)
+	inline t_float fclamp01(t_float f)
 	{
-		return clamp<FLOAT>(f, 0.0f, 1.0f);
+		return clamp<t_float>(f, 0.0f, 1.0f);
 	}
 
-	inline bool fequal(FLOAT f1, FLOAT f2)
+	inline bool fequal(t_float f1, t_float f2)
 	{
-		return fabs(f1 - f2) <= FLOAT_EPSILON;
+		return fabs(f1 - f2) <= FLT_EPSILON;
 	}
 }
 

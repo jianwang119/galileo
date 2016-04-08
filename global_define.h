@@ -4,14 +4,18 @@
 #include <stdlib.h>
 #include <iostream>
 
-#define U8 unsigned char
-#define S8 signed char
-#define U16 unsigned short
-#define S16 signed short
-#define U32 unsigned int
-#define S32 signed int
-#define U64 unsigned long long	
-#define S64 signed long long
-#define FLOAT float
+typedef unsigned char t_u8;
+typedef signed char t_s8;
+typedef unsigned short t_u16;
+typedef signed short t_s16;
+typedef unsigned int t_u32;
+typedef signed int t_s32;
+typedef unsigned long long t_u64;
+typedef signed long long t_s64;
+#ifdef HIGH_PRECISION
+typedef double t_float;
+#else
+typedef float t_float;
+#endif
 
 #endif

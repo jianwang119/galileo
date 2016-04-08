@@ -100,7 +100,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,7 +132,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,7 +146,9 @@
     <ClCompile Include="galileo.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="matrix4.cpp" />
-    <ClCompile Include="orthonormal_basis.cpp" />
+    <ClCompile Include="ortho_basis.cpp" />
+    <ClCompile Include="sample1.cpp" />
+    <ClCompile Include="sample2.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="surface_list.cpp" />
@@ -161,14 +163,17 @@
     <ClInclude Include="math_geo.h" />
     <ClInclude Include="math_utils.h" />
     <ClInclude Include="matrix4.h" />
-    <ClInclude Include="orthonormal_basis.h" />
+    <ClInclude Include="ortho_basis.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="rgb.h" />
+    <ClInclude Include="sample1.h" />
+    <ClInclude Include="sample2.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="surface.h" />
     <ClInclude Include="surface_list.h" />
     <ClInclude Include="triangle.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />
   </ItemGroup>

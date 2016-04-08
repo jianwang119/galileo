@@ -1,10 +1,10 @@
 
 #include "surface_list.h"
 
-bool galileo::surface_list::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time, 
-	surface_hit_record& rec) const
+bool galileo::c_surface_list::hit(const c_ray& r, t_float tmin, t_float tmax, t_float time, 
+	c_surface_hit_record& rec) const
 {
-	surface_hit_record temp;
+	c_surface_hit_record temp;
 	rec.t = tmax;
 	bool hit_something = false;
 	for (int i = 0; i < length(); i++) 
@@ -18,14 +18,14 @@ bool galileo::surface_list::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time
 	return hit_something;
 }
 
-galileo::bounds galileo::surface_list::aabb(FLOAT time0, FLOAT time1) const
+galileo::c_bounds galileo::c_surface_list::aabb(t_float time0, t_float time1) const
 {
-	vector3 _min(FLT_MAX, FLT_MAX, FLT_MAX);
-	vector3 _max(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+	c_vector3 _min(FLT_MAX, FLT_MAX, FLT_MAX);
+	c_vector3 _max(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 
 	for (int i = 0; i < length(); i++)
 	{
-		bounds box = surfaces[i]->aabb(time0, time1);
+		c_bounds box = surfaces[i]->aabb(time0, time1);
 		if (box.min().x() < _min.x()) _min.set_x(box.min().x());
 		if (box.min().y() < _min.y()) _min.set_y(box.min().y());
 		if (box.min().z() < _min.z()) _min.set_z(box.min().z());
@@ -33,5 +33,5 @@ galileo::bounds galileo::surface_list::aabb(FLOAT time0, FLOAT time1) const
 		if (box.max().y() > _max.y()) _max.set_y(box.max().y());
 		if (box.max().z() > _max.z()) _max.set_z(box.max().z());
 	}
-	return bounds(_min, _max);
+	return c_bounds(_min, _max);
 }

@@ -5,48 +5,48 @@
 
 namespace galileo
 {
-	class ray
+	class c_ray
 	{
 	public:
-		ray()
+		c_ray()
 		{
 		}
 
-		ray(const vector3& o, const vector3& d)
+		c_ray(const c_vector3& o, const c_vector3& d)
 		{
 			data[0] = o;
 			set_direction(d);
 		}
 
-		ray(const ray& r)
+		c_ray(const c_ray& r)
 		{
 			*this = r;
 		}
 
-		const vector3& origin() const
+		const c_vector3& origin() const
 		{
 			return data[0];
 		}
 
-		const vector3& direction() const
+		const c_vector3& direction() const
 		{
 			return data[1];
 		}
 
-		const vector3& direction_inv() const
+		const c_vector3& direction_inv() const
 		{
 			return data[2];
 		}
 
-		void set_origin(const vector3& v)
+		void set_origin(const c_vector3& v)
 		{
 			data[0] = v;
 		}
 
-		void set_direction(const vector3& v)
+		void set_direction(const c_vector3& v)
 		{
 			data[1] = v;
-			data[2] = vector3(1.0f / v.x(), 1.0f / v.y(), 1.0f / v.z());
+			data[2] = c_vector3(1.0f / v.x(), 1.0f / v.y(), 1.0f / v.z());
 
 			posneg[0] = (data[1].x() > 0 ? 0 : 1);
 			posneg[1] = posneg[0] ^ 1;
@@ -58,17 +58,17 @@ namespace galileo
 			posneg[5] = posneg[4] ^ 1;
 		}
 
-		vector3 get_point(FLOAT t) const
+		c_vector3 get_point(t_float t) const
 		{
 			return data[0] + t * data[1];
 		}
 
 	public:
-		vector3 data[3];
+		c_vector3 data[3];
 		int posneg[6];
 	};
 
-	inline std::ostream &operator<<(std::ostream &os, const ray &r)
+	inline std::ostream &operator<<(std::ostream &os, const c_ray &r)
 	{
 		return os << r.origin() << r.direction();
 	}

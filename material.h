@@ -3,12 +3,12 @@
 
 #include "rgb.h"
 #include "vector3.h"
-#include "orthonormal_basis.h"
+#include "ortho_basis.h"
 #include "surface.h"
 
 namespace galileo
 {
-	class material
+	class c_material
 	{
 	public:
 		virtual bool emits() const 
@@ -16,28 +16,28 @@ namespace galileo
 			return false; 
 		}
 
-		virtual rgb emitted_radiance(const orthonormal_basis& frame,
-			const vector3& v_out, const vector3& on_light, const vector2& uv)
+		virtual c_rgb emitted_radiance(const c_ortho_basis& frame,
+			const c_vector3& v_out, const c_vector3& on_light, const c_vector2& uv)
 		{
-			return rgb(0, 0, 0);
+			return c_rgb(0, 0, 0);
 		}
 
-		virtual rgb ambient_response(const orthonormal_basis& frame,
-			const vector3& v, const vector3& on_light, const vector2& uv)
+		virtual c_rgb ambient_response(const c_ortho_basis& frame,
+			const c_vector3& v, const c_vector3& on_light, const c_vector2& uv)
 		{
-			return rgb(0, 0, 0);
+			return c_rgb(0, 0, 0);
 		}
 
-		virtual bool explicit_brdf(const orthonormal_basis& frame,
-			const vector3& v1, const vector3& v0, const vector3& on_light,
-			const vector2& uv, rgb& brdf) 
+		virtual bool explicit_brdf(const c_ortho_basis& frame,
+			const c_vector3& v1, const c_vector3& v0, const c_vector3& on_light,
+			const c_vector2& uv, c_rgb& brdf) 
 		{
 			return false;
 		}
 
-		virtual bool scatter_direction(const vector3& v_in,
-			const surface_hit_record& rec, vector2& seed, rgb& color, 
-			bool& count_emitted_light, float& brdf_scale, vector3& v_out) = 0;                           // scattered direction
+		virtual bool scatter_direction(const c_vector3& v_in,
+			const c_surface_hit_record& rec, c_vector2& seed, c_rgb& color, 
+			bool& count_emitted_light, t_float& brdf_scale, c_vector3& v_out) = 0;                           // scattered direction
 
 		virtual bool is_specular() 
 		{ 
@@ -59,9 +59,9 @@ namespace galileo
 			return 0; 
 		}
 
-		virtual rgb photon_color() 
+		virtual c_rgb photon_color() 
 		{ 
-			return rgb(0.0f, 0.0f, 0.0f); 
+			return c_rgb(0.0f, 0.0f, 0.0f); 
 		}
 	};
 
