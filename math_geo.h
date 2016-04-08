@@ -5,6 +5,7 @@
 
 #include "vector3.h"
 #include "ray.h"
+#include "surface.h"
 
 namespace galileo
 {
@@ -98,6 +99,29 @@ namespace galileo
 
 		t = -(F*AKJB + E*JCAL + D*BLKC) / denom;
 		return (t >= tmin && t <= tmax);
+	}
+
+	inline int qsplit(c_surface** list, int size, t_float pivot_val, int axis)
+	{
+		c_bounds bbox;
+		t_float centroid;
+		int ret_val = 0;
+
+		for (int i = 0; i < size; i++)
+		{
+			bbox = list[i]->aabb(0.0f, 0.0f);
+			centroid = ((bbox.min())[axis] + (bbox.max())[axis]) / 2.0f;
+			if (centroid < pivot_val)
+			{
+				c_surface* temp = list[i];
+				list[i] = list[ret_val];
+				list[ret_val] = temp;
+				ret_val++;
+			}
+		}
+		if (ret_val == 0 || ret_val == size) ret_val = size / 2;
+
+		return ret_val;
 	}
 }
 
