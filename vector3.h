@@ -28,32 +28,32 @@ namespace galileo
 			data[2] = v.data[2];
 		}
 
-		float x() const
+		FLOAT x() const
 		{
 			return data[0];
 		}
 
-		float y() const
+		FLOAT y() const
 		{
 			return data[1];
 		}
 
-		float z() const
+		FLOAT z() const
 		{
 			return data[2];
 		}
 
-		void set_x(float f)
+		void set_x(FLOAT f)
 		{
 			data[0] = f;
 		}
 
-		void set_y(float f)
+		void set_y(FLOAT f)
 		{
 			data[1] = f;
 		}
 
-		void set_z(float f)
+		void set_z(FLOAT f)
 		{
 			data[2] = f;
 		}

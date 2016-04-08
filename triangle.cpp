@@ -10,6 +10,7 @@ bool galileo::triangle::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 	
 	if (triangle_intersect(r, tmin, tmax, p0, p1, p2, t, beta, gamma))
 	{
+		rec.instance_id = instance_id;
 		rec.mat = mat;
 		rec.pt = rec.tex_pt = r.get_point(t);
 		rec.t = t;
@@ -31,7 +32,13 @@ bool galileo::triangle::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 	return false;
 }
 
-bool galileo::triangle::random_point(const vector3& view_point, const vector2& aseed, 
+bool galileo::triangle::shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
+{
+	FLOAT t, beta, gamma;
+	return triangle_intersect(r, tmin, tmax, p0, p1, p2, t, beta, gamma);
+}
+
+bool galileo::triangle::random_point(const vector3& view_point, const vector2& aseed,
 	FLOAT time, vector3& on_light, vector3& normal, FLOAT& pdf, rgb& emitted_radiance) const
 {
 	float temp = sqrt(1.0f - aseed.x());

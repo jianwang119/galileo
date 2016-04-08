@@ -148,6 +148,7 @@
     <ClCompile Include="matrix4.cpp" />
     <ClCompile Include="orthonormal_basis.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="surface.cpp" />
     <ClCompile Include="surface_list.cpp" />
     <ClCompile Include="triangle.cpp" />
   </ItemGroup>

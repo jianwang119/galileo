@@ -1,33 +1,24 @@
 
 #include "sphere.h"
 #include "material.h"
+#include "math_geo.h"
 
 bool galileo::sphere::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 	surface_hit_record& rec) const
 {
-	vector3 temp = r.origin() - center;
-	float twoa = 2.0f * dot(r.direction(), r.direction());
-	float b = 2.0f * dot(r.direction(), temp);
-	float c = dot(temp, temp) - radius * radius;
-	float discriminant = b*b - 2.0f * twoa * c;
-
-	if (discriminant > 0.0f)
+	FLOAT t;
+	if (sphere_intersect(r, tmin, tmax, center, radius, t))
 	{
-		discriminant = sqrt(discriminant);
-		FLOAT t = (-b - discriminant) / twoa;
-		if (t < tmin) 
-			t = (-b + discriminant) / twoa;
-		if (t < tmin || t > tmax) 
-			return false;
-
+		rec.instance_id = instance_id;
 		rec.mat = mat;
 		rec.pt = rec.tex_pt = r.get_point(t);
 		rec.t = t;
+
 		vector3 n = (rec.pt - center);
 		FLOAT theta = acos(0.9999f * n.z());
-		float sinTheta = sin(theta);
-		float phi = acos(n.x() / (1.0001f * sinTheta));
-		if (n.y() < 0.0f) 
+		FLOAT sinTheta = sin(theta);
+		FLOAT phi = acos(n.x() / (1.0001f * sinTheta));
+		if (n.y() < 0.0f)
 			phi = TWO_PI - phi;
 		rec.uv = vector2(phi / TWO_PI, 1.0f - theta / PI);
 		rec.frame.init_from_w(n);
@@ -39,46 +30,33 @@ bool galileo::sphere::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 
 bool galileo::sphere::shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const
 {
-	vector3 temp = r.origin() - center;
-	float twoa = 2.0f * dot(r.direction(), r.direction());
-	float b = 2.0f * dot(r.direction(), temp);
-	float c = dot(temp, temp) - radius*radius;
-	float discriminant = b * b - 2.0f * twoa * c;
-
-	if (discriminant > 0.0f)
-	{
-		discriminant = sqrt(discriminant);
-		float t = (-b - discriminant) / twoa;
-		if (t < tmin) 
-			t = (-b + discriminant) / twoa;
-		return (!(t < tmin || t > tmax));
-	}
-	return false;
+	FLOAT t;
+	return sphere_intersect(r, tmin, tmax, center, radius, t);
 }
 
 bool galileo::sphere::random_point(const vector3& view_point, const vector2& aseed,
 	FLOAT time, vector3& on_light, vector3& normal, FLOAT& pdf, rgb& emitted_radiance) const
 {
-	float d = (view_point - center).length();
+	FLOAT d = (view_point - center).length();
 	if (d < radius) 
 		return false;
 
-	float r = radius;
+	FLOAT r = radius;
 	vector2 seed = aseed;
 
-	float sin_alpha_max = (r / d);
-	float cos_alpha_max = sqrt(1 - sin_alpha_max * sin_alpha_max);
-	float q = 1.0f / (TWO_PI * (1 - cos_alpha_max));
+	FLOAT sin_alpha_max = (r / d);
+	FLOAT cos_alpha_max = sqrt(1 - sin_alpha_max * sin_alpha_max);
+	FLOAT q = 1.0f / (TWO_PI * (1 - cos_alpha_max));
 	int counter = 0;
 	
 	do 
 	{
-		float cos_alpha = 1 + seed.x()*(cos_alpha_max - 1);
-		float sin_alpha = sqrt(1 - cos_alpha * cos_alpha);
+		FLOAT cos_alpha = 1 + seed.x()*(cos_alpha_max - 1);
+		FLOAT sin_alpha = sqrt(1 - cos_alpha * cos_alpha);
 
-		float phi = TWO_PI * seed.y();
-		float cos_phi = cos(phi);
-		float sin_phi = sin(phi);
+		FLOAT phi = TWO_PI * seed.y();
+		FLOAT cos_phi = cos(phi);
+		FLOAT sin_phi = sin(phi);
 
 		vector3 k_i(cos_phi * sin_alpha, sin_phi * sin_alpha, cos_alpha);
 
@@ -91,7 +69,7 @@ bool galileo::sphere::random_point(const vector3& view_point, const vector2& ase
 		if (this->hit(to_light, 0.00001f, FLT_MAX, time, rec)) 
 		{
 			on_light = rec.pt;
-			float cos_theta_prime = -dot(rec.frame.w(), to_light.direction());
+			FLOAT cos_theta_prime = -dot(rec.frame.w(), to_light.direction());
 			pdf = q * cos_theta_prime / (on_light - view_point).squared_length();
 			normal = rec.frame.w();
 			emitted_radiance = mat->emitted_radiance(rec.frame, -to_light.direction(),

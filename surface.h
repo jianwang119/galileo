@@ -20,11 +20,22 @@ namespace galileo
 		orthonormal_basis frame;
 		vector2 uv;
 		material* mat;
+		U32 instance_id;
 	};
 
 	class surface
 	{
 	public:
+		surface()
+		{
+			instance_id = instance_id_counter++;
+		}
+
+		U32 id() const
+		{
+			return instance_id;
+		}
+
 		virtual bool hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 			surface_hit_record& rec) const = 0;
 
@@ -59,6 +70,12 @@ namespace galileo
 		{
 			return false;
 		}
+
+	protected:
+		U32 instance_id;
+
+	protected:
+		static U32 instance_id_counter;
 	};
 }
 

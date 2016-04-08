@@ -9,7 +9,8 @@ bool galileo::surface_list::hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time
 	bool hit_something = false;
 	for (int i = 0; i < length(); i++) 
 	{
-		if (surfaces[i]->hit(r, tmin, rec.t, time, temp)) {
+		if (surfaces[i]->hit(r, tmin, rec.t, time, temp))
+		{
 			rec = temp;
 			hit_something = true;
 		}

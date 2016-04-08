@@ -37,6 +37,26 @@ namespace galileo
 		return true;
 	}
 
+	inline bool sphere_intersect(const ray& r, float tmin, float tmax,
+		const vector3& center, FLOAT radius, FLOAT& t)
+	{
+		vector3 temp = r.origin() - center;
+		FLOAT twoa = 2.0f * dot(r.direction(), r.direction());
+		FLOAT b = 2.0f * dot(r.direction(), temp);
+		FLOAT c = dot(temp, temp) - radius*radius;
+		FLOAT discriminant = b * b - 2.0f * twoa * c;
+
+		if (discriminant > 0.0f)
+		{
+			discriminant = sqrt(discriminant);
+			FLOAT t = (-b - discriminant) / twoa;
+			if (t < tmin)
+				t = (-b + discriminant) / twoa;
+			return (!(t < tmin || t > tmax));
+		}
+		return false;
+	}
+
 	inline bool triangle_intersect(const ray& r, float tmin, float tmax,
 		const vector3& p0, const vector3& p1, const vector3& p2,
 		FLOAT& t, FLOAT& beta, FLOAT& gamma)

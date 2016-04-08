@@ -44,7 +44,7 @@ namespace galileo
 			return false; 
 		}
 		
-		virtual bool isTransmissive() 
+		virtual bool is_transmissive() 
 		{ 
 			return false; 
 		}

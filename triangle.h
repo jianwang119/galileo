@@ -37,6 +37,8 @@ namespace galileo
 		virtual bool hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time,
 			surface_hit_record& rec) const;
 
+		virtual bool shadow_hit(const ray& r, FLOAT tmin, FLOAT tmax, FLOAT time) const;
+
 		virtual bool random_point(const vector3& view_point, const vector2& aseed,
 			FLOAT time, vector3& on_light, vector3& normal, FLOAT& pdf,
 			rgb& emitted_radiance) const;
