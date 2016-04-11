@@ -1,0 +1,12 @@
+
+These class files are for a probabilistic ray tracer and are
+associated with the second edition of REALISTIC RAY TRACING by
+Peter Shirley and R. Keith Morley (AK Peters, 2003).  These
+files are in the public domain and nor warranty is implied or
+given, and they should be used at your own risk.
+Please send any comments or corrections to shirley@cs.utah.edu and
+rmorley@cs.utah.edu
+
+Updates:
+
+May 21, 2003 files created

@@ -74,6 +74,7 @@ namespace galileo
 		return u;
 	}
 
+	// generation of stratified samples for b-spline pixel filtering
 	inline t_float cubic_filter(t_float x)
 	{
 		if (x < 1.0f / 24.0f)
