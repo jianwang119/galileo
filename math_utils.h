@@ -34,7 +34,7 @@ namespace galileo
 	template<typename T>
 	T lerp(T s, T e, t_float f)
 	{
-		return s * f + e * (1 - f);
+		return s * (1 - f) + e * f;
 	}
 
 	template<typename T>
