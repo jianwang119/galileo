@@ -8,7 +8,7 @@ namespace galileo
 	class c_sphere : public c_surface
 	{
 	public:
-		c_sphere(c_vector3 c, t_float r, c_material* m)
+		c_sphere(const c_vector3& c, t_float r, c_material* m)
 		{
 			center = c; 
 			radius = r; 

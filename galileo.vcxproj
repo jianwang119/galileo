@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bounds.cpp" />
+    <ClCompile Include="dynamic_sphere.cpp" />
     <ClCompile Include="galileo.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="matrix4.cpp" />
@@ -156,7 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bounds.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="dynamic_array.h" />
+    <ClInclude Include="dynamic_sphere.h" />
     <ClInclude Include="global_define.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="material.h" />
