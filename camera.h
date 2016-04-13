@@ -1,6 +1,10 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
+#include "vector3.h"
+#include "ray.h"
+#include "ortho_basis.h"
+
 namespace galileo
 {
 	class c_camera
@@ -25,18 +29,19 @@ namespace galileo
 			lens_radius = rhs.lens_radius;
 		}
 
-		c_camera(const c_vector3& c, const c_vector3& gaze, const c_vector3& up,
+		c_camera(const c_vector3& _center, const c_vector3& gaze, const c_vector3& _up,
 			t_float aperture, t_float l, t_float r, t_float b, t_float t, t_float d)
 		{
-			center = c;
-			frame.init_from_wv(-gaze, up);
+			center = _center;
+			frame.init_from_wv(-gaze, _up);
 			corner = center + l * frame.u() + b * frame.v() - d * frame.w();
 			across = (r - l) * frame.u();
 			up = (t - b) * frame.v();
-			left = ;
+			left = l;
 			right = r;
 			bottom = b;
 			top = t;
+			distance = d;
 			lens_radius = aperture / 2.0f;
 		}
 

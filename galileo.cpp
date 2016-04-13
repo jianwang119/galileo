@@ -10,6 +10,7 @@ using namespace std;
 #include "image.h"
 #include "surface_list.h"
 #include "sample2.h"
+#include "camera.h"
 using namespace galileo;
 
 void test_single_sample_ray_tracer()
@@ -127,10 +128,67 @@ void test_multi_sample_ray_tracer(int mx, int my)
 	out.close();
 }
 
+void test_camera()
+{
+	c_image img(500, 500);
+
+	c_sphere _sphere(c_vector3(0, 0, 0), 1.0f, nullptr);
+	c_triangle _triangle(c_vector3(0, 0, 0), c_vector3(0, 1, 0),
+		c_vector3(1, 1, 0), nullptr);
+	c_surface_list sl;
+	sl.add(&_sphere);
+	sl.add(&_triangle);
+
+	c_camera cam(c_vector3(0, 0, 2), c_vector3(0, 0, -2), c_vector3(0, 1, 0),
+		0.01f, -2, 2, -2, 2, 1);
+
+	c_vector3 o;
+	c_vector3 d(0, 0, -1);
+	c_ray r(o, d);
+	c_surface_hit_record hit_record;
+
+	for (int i = 0; i < 500; i++)
+	{
+		for (int j = 0; j < 500; j++)
+		{
+			c_rgb clr(0, 0, 0);
+
+			c_ray r = cam.get_ray(i/500.0f, j / 500.0f, 0, 0);
+
+			if (sl.hit(r, 0.01f, 2000.0f, 0, hit_record))
+			{
+				if (hit_record.instance_id == _sphere.id())
+				{
+					c_vector3 w = hit_record.frame.w() / 2 + 0.5f;
+					clr = c_rgb(w.x(), w.y(), w.z());
+				}
+				else if (hit_record.instance_id == _triangle.id())
+				{
+					c_vector3 w = hit_record.frame.w() / 2 + 0.5f;
+					clr = c_rgb(w.x(), w.y(), w.z());
+				}				
+			}
+			else
+			{
+				clr = c_rgb(0, 1, 0);
+			}
+
+			img.set_pixel(i, j, clr);
+		}
+	}
+
+	std::ofstream out;
+	out.open("d:\\test_camera.ppm");
+	img.write_PPM(out);
+	out.close();
+}
+
 int main()
 {
 	//test_single_sample_ray_tracer();
-	test_multi_sample_ray_tracer(3,3);
+	//test_multi_sample_ray_tracer(3,3);
+	test_camera();
+
     return 0;
 }
 
